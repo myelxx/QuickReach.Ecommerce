@@ -47,11 +47,11 @@ namespace QuickReach.Ecommerce.Test
             var sut = new UserService(mockLoginManager.Object, mockUserRepository.Object);
 
             //Act
-            Assert.Throws<InvalidFormatPasswordException>( () => sut.RegisterUser(user));
+            sut.RegisterUser(user);
 
-            mockUserRepository.Verify((r) => r.Save(user), Times.Never);
             //Assert
-
+            Assert.Throws<InvalidFormatPasswordException>(() => sut.RegisterUser(user));
+            mockUserRepository.Verify((r) => r.Save(user), Times.Never);
         }
 
         }
